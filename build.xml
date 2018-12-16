@@ -30,7 +30,6 @@
 		</javac>
 	</target>
 	<target name="jar" depends="compile">
-		<copy file="${configdir}/javax.usb.properties" toDir="${dstdir}" />
 		<copy file="${basedir}/build.xml" toDir="${dstdir}" />
 		<jar destfile="${dstdir}/${ant.project.name}.jar" baseDir="${dstdir}">
 			<include name="**/*.class" />
