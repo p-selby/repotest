@@ -8,11 +8,23 @@
 	<condition property="is.mac">
 	    <os family="mac"/>
 	</condition>
-	<path id="compile.classpath"/>
+	<path id="compile.classpath">
+		<fileset dir="${env.ANT_HOME}/lib">
+			<include name="ant-launcher.jar" />
+		</fileset>
+		<fileset dir="${libdir}">
+			<include name="log4j-api-2.11.1.jar" />
+			<include name="log4j-core-2.11.1.jar" />
+			<include name="slf4j-api-1.7.12.jar" />
+			<include name="slf4j-jdk14-1.7.12.jar" />
+			<include name="jsch-0.1.53.jar" />
+		</fileset>
+	</path>
 	<mkdir dir="${dstdir}" />
 	<target name="compile">
 		<javac srcdir="${basedir}/src" destdir="${dstdir}" includeantruntime="true"
-		  classpathref="compile.classpath" debug="true" >
+		  classpathref="compile.classpath" debug="true"
+		  executable="/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/bin/javac" >
 			<compilerarg value="-Xlint" />
 			<compilerarg value="-Xlint:-path" />
 		</javac>
@@ -46,6 +58,12 @@
 			<zipfileset src="${env.ANT_HOME}/lib/ant-swing.jar" excludes="META-INF/*" />
 			<zipfileset src="${env.ANT_HOME}/lib/ant-testutil.jar" excludes="META-INF/*" />
 			<zipfileset src="${env.ANT_HOME}/lib/ant.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.HOME}/lib/org.eclipse.jgit.jar" excludes="META-INF/*" />
+			<zipfileset src="${libdir}/log4j-api-2.11.1.jar" excludes="META-INF/*" />
+			<zipfileset src="${libdir}/log4j-core-2.11.1.jar" excludes="META-INF/*" />
+			<zipfileset src="${libdir}/slf4j-api-1.7.12.jar" excludes="META-INF/*" />
+			<zipfileset src="${libdir}/slf4j-jdk14-1.7.12.jar" excludes="META-INF/*" />
+			<zipfileset src="${libdir}/jsch-0.1.53.jar" excludes="META-INF/*" />
 		</jar>
 	</target>
 	<target name="clean">
