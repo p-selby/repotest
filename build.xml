@@ -1,0 +1,60 @@
+<project name="lambda" default="jar" xmlns:unless="ant:unless">
+	<property name="srcdir" value="${basedir}/src" />
+	<property name="dstdir" value="${basedir}/build" />
+	<property name="libdir" value="${basedir}/lib" />
+	<property name="glassfish" value="/Volumes/opt2/glassfish5/glassfish" />
+	<property name="configdir" value="${basedir}/config" />
+	<property environment="env" />
+	<condition property="is.mac">
+	    <os family="mac"/>
+	</condition>
+	<path id="compile.classpath"/>
+	<mkdir dir="${dstdir}" />
+	<target name="compile">
+		<javac srcdir="${basedir}/src" destdir="${dstdir}" includeantruntime="true"
+		  classpathref="compile.classpath" debug="true" >
+			<compilerarg value="-Xlint" />
+			<compilerarg value="-Xlint:-path" />
+		</javac>
+	</target>
+	<target name="jar" depends="compile">
+		<copy file="${configdir}/javax.usb.properties" toDir="${dstdir}" />
+		<copy file="${basedir}/build.xml" toDir="${dstdir}" />
+		<jar destfile="${dstdir}/${ant.project.name}.jar" baseDir="${dstdir}">
+			<include name="**/*.class" />
+			<include name="**/*.properties" />
+			<include name="**/*.xml" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-antlr.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-apache-bcel.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-apache-bsf.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-apache-log4j.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-apache-oro.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-apache-regexp.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-apache-resolver.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-apache-xalan2.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-commons-logging.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-commons-net.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-jai.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-javamail.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-jdepend.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-jmf.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-jsch.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-junit.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-junit4.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-launcher.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-netrexx.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-swing.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant-testutil.jar" excludes="META-INF/*" />
+			<zipfileset src="${env.ANT_HOME}/lib/ant.jar" excludes="META-INF/*" />
+		</jar>
+	</target>
+	<target name="clean">
+		<delete dir="${dstdir}">
+			<include name="**/*.class" />
+			<include name="*.jar" />
+		</delete>
+	</target>
+	<target name="cleanAll">
+		<delete dir="${dstdir}" />
+	</target>
+</project>
