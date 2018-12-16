@@ -23,7 +23,7 @@
 	<mkdir dir="${dstdir}" />
 	<target name="compile">
 		<javac srcdir="${basedir}/src" destdir="${dstdir}" includeantruntime="true"
-		  classpathref="compile.classpath" debug="true"
+		  classpathref="compile.classpath" debug="true" fork="yes"
 		  executable="/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/bin/javac" >
 			<compilerarg value="-Xlint" />
 			<compilerarg value="-Xlint:-path" />
